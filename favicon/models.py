@@ -1,4 +1,4 @@
-import sys
+import os, sys
 
 from django.db import models
 from django.conf import settings
@@ -17,7 +17,9 @@ config = {
     'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152, 180],
 }
 
-config = getattr(settings, 'FAVICON_CONFIG', config)
+config = settings.get('FAVICON_CONFIG', config)
+
+image_path = os.path.join(settings.STATIC_ROOT, settings.get("FAVICON_PATH", "favicon"))
 
 
 def pre_delete_image(sender, instance, **kwargs):
@@ -26,7 +28,7 @@ def pre_delete_image(sender, instance, **kwargs):
 
 class Favicon(models.Model):
     title = models.CharField(max_length=100)
-    faviconImage = models.ImageField(upload_to="favicon")
+    faviconImage = models.ImageField(upload_to=settings.STATIC_ROOT + "favicon")
 
     isFavicon = models.BooleanField(default=True)
 

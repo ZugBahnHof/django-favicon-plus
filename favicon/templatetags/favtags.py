@@ -23,11 +23,10 @@ def place_favicon(context):
     for rel in config:
         for size in sorted(config[rel], reverse=True):
             n = fav.get_favicon(size=size, rel=rel)
-            html += '<link rel="%s" sizes="%sx%s" href="%s"/>' % (
-                n.rel, n.size, n.size, n.faviconImage.url)
+            html += f'<link rel="{n.rel}" sizes="{n.size}x{n.size}" href="{n.faviconImage.url}"/>'
 
     default_fav = fav.get_favicon(size=32, rel='shortcut icon')
-    html += '<link rel="%s" sizes="%sx%s" href="%s"/>' % (
-        default_fav.rel, default_fav.size, default_fav.size, default_fav.faviconImage.url)
+    html += f'<link rel="{default_fav.rel}" sizes="{default_fav.size}x{default_fav.size}"\
+     href="{default_fav.faviconImage.url}"/>'
 
     return mark_safe(html)
