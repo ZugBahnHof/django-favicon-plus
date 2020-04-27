@@ -17,9 +17,9 @@ config = {
     'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152, 180],
 }
 
-config = settings.get('FAVICON_CONFIG', config)
+config = getattr(settings, 'FAVICON_CONFIG', config)
 
-image_path = os.path.join(settings.STATIC_ROOT, settings.get("FAVICON_PATH", "favicon"))
+image_path = os.path.join(settings.STATIC_ROOT, getattr(settings, "FAVICON_PATH", "favicon"))
 
 
 def pre_delete_image(sender, instance, **kwargs):
