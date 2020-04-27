@@ -21,7 +21,10 @@ INSTALLED_APPS = (
     ...
 )
 ```    
-The default `FAVICON_CONFIG` look like this, if you want something else you can define it in your settings.py. The key of the dictionary is the value for the `rel` attribute of the link tag, while the list in the value are the sizes for the `size` attribute and the image resizing.
+The default `FAVICON_CONFIG` look like this, if you want something else you can define it in your settings.py.
+The key of the dictionary is the value for the `rel` attribute of the link tag, while the list in the value are the
+sizes for the `size` attribute and the image resizing.
+
 ```python
 FAVICON_CONFIG = {
     'shortcut icon': [16 ,32 ,48 ,128, 192],
@@ -31,13 +34,25 @@ FAVICON_CONFIG = {
     'apple-touch-icon-precomposed': [57, 72, 76, 114, 120, 144, 152,180],
 }
 ```
-Upload an image in the admin backend --> all the size will be created, its best to take a larger base favicon
+Please make sure you have specified a `MEDIA_URL` in `settings.py` and your root `urlconf` looks like this:
 
-use the templatetag in your base.html
+```python
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    ...,
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+You can also provide a `FAVICON_PATH` in your `settings.py` to specify the folder name of your favicon folder.
+The default is `favicon`
+
+Upload an image in the admin backend --> all the size will be created, its best to take a larger base favicon.
+
+Use the templatetag in your base.html
 ```html+django
 {% load favtags %}
     
-{% placeFavicon %}
+{% place_favicon %}
 ```
 this will create:
 ```html
