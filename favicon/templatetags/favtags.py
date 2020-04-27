@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def placeFavicon(context):
+def place_favicon(context):
     """
     Gets Favicon-URL for the Model.
 
