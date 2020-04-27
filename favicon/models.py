@@ -19,7 +19,7 @@ config = {
 
 config = getattr(settings, 'FAVICON_CONFIG', config)
 
-image_path = os.path.join(settings.STATIC_ROOT, getattr(settings, "FAVICON_PATH", "favicon"))
+image_path = getattr(settings, "FAVICON_PATH", "favicon")
 
 
 def pre_delete_image(sender, instance, **kwargs):
@@ -28,7 +28,7 @@ def pre_delete_image(sender, instance, **kwargs):
 
 class Favicon(models.Model):
     title = models.CharField(max_length=100)
-    faviconImage = models.ImageField(upload_to=settings.STATIC_ROOT + "favicon")
+    faviconImage = models.ImageField(upload_to=image_path)
 
     isFavicon = models.BooleanField(default=True)
 
@@ -97,7 +97,7 @@ class FaviconImg(models.Model):
     faviconFK = models.ForeignKey(Favicon, on_delete=models.CASCADE)
     size = models.IntegerField()
     rel = models.CharField(max_length=250, null=True)
-    faviconImage = models.ImageField(upload_to='favicon')
+    faviconImage = models.ImageField(upload_to=image_path)
 
     def del_image(self):
         self.faviconImage.delete()
