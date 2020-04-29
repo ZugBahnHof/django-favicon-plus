@@ -1,7 +1,8 @@
 from django import template
 from django.utils.safestring import mark_safe
 
-from favicon.models import Favicon, config
+from favicon.helper import get_favicon_of_current_site
+from favicon.models import config
 
 register = template.Library()
 
@@ -16,7 +17,7 @@ def place_favicon(context):
         {% place_favicon %}
 
     """
-    fav = Favicon.objects.filter(isFavicon=True).first()
+    fav = get_favicon_of_current_site(context["request"])
     if not fav:
         return mark_safe('<!-- no favicon -->')
     html = ''

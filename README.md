@@ -10,7 +10,8 @@ Install django-favicon using PIP.
 pip install git+https://github.com/ZugBahnHof/django-favicon-plus.git
 ```
 
-Add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-app is also installed and a URL is specified in the admin backend
+Add app to `INSTALLED_APPS` List in your `settings.py` file, make sure `sites`-app is also installed, a URL is
+specified in the admin backend and you specify your site in settings.py with `SITE_ID = <your-site-id-here>`.
 
 ```python
 INSTALLED_APPS = (

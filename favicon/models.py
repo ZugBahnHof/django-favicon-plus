@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.files.storage import default_storage as storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import signals
+from django.contrib.sites.models import Site
 
 from PIL import Image
 from compat import BytesIO
@@ -31,6 +32,8 @@ class Favicon(models.Model):
     faviconImage = models.ImageField(upload_to=image_path)
 
     isFavicon = models.BooleanField(default=True)
+
+    site = models.ForeignKey(Site, related_name="favicon", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Favicon'
@@ -78,7 +81,7 @@ class Favicon(models.Model):
         update = False
 
         if self.isFavicon:
-            for n in Favicon.objects.exclude(pk=self.pk):
+            for n in Favicon.objects.filter(site=self.site).exclude(pk=self.pk):
                 n.isFavicon = False
                 n.save()
 
