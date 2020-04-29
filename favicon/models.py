@@ -1,14 +1,13 @@
-import os, sys
-
-from django.db import models
-from django.conf import settings
-from django.core.files.storage import default_storage as storage
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.db.models import signals
-from django.contrib.sites.models import Site
+import sys
 
 from PIL import Image
 from compat import BytesIO
+from django.conf import settings
+from django.contrib.sites.models import Site
+from django.core.files.storage import default_storage as storage
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db import models
+from django.db.models import signals
 
 config = {
     'shortcut icon': [16, 32, 48, 128, 192],
